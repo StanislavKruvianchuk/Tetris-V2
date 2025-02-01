@@ -45,7 +45,7 @@ export const getRandomElement = (array) => {
     return array[randomIndex]
 }
 
-export const convertpositionToIndex = (row, column) => {
+export const convertPositionToIndex = (row, column) => {
     return row * PLAYFIELD_COLUMNS + column;
 }
 

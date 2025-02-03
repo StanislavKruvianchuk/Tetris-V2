@@ -55,7 +55,7 @@ const dropDown = () => {
     stopLoop();
     startLoop();
 
-    if(tetris.isGameOver) {
+    if (tetris.isGameOver) {
         gameOver();
     }
 }
@@ -76,8 +76,8 @@ const onKeyDown = (event) => {
         case ' ':
             dropDown();
             break;
-        default: 
-            break    
+        default:
+            break
     }
 }
 
@@ -101,20 +101,20 @@ const drawTetromino = () => {
 const drawGhostTetromino = () => {
     const tetrominoMatrixSize = tetris.tetromino.matrix.length;
     for (let row = 0; row < tetrominoMatrixSize; row++) {
-      for (let column = 0; column < tetrominoMatrixSize; column++) {
-        if (!tetris.tetromino.matrix[row][column]) continue;
-        if (tetris.tetromino.ghostRow + row < 0) continue;
-        const cellIndex = convertPositionToIndex(tetris.tetromino.ghostRow + row, tetris.tetromino.ghostColumn + column);
-        cells[cellIndex].classList.add('ghost');
-      }
+        for (let column = 0; column < tetrominoMatrixSize; column++) {
+            if (!tetris.tetromino.matrix[row][column]) continue;
+            if (tetris.tetromino.ghostRow + row < 0) continue;
+            const cellIndex = convertPositionToIndex(tetris.tetromino.ghostRow + row, tetris.tetromino.ghostColumn + column);
+            cells[cellIndex].classList.add('ghost');
+        }
     }
-  }
+}
 
 const drowPlayfield = () => {
     for (let row = 0; row < PLAYFIELD_ROWS; row++) {
         for (let column = 0; column < PLAYFIELD_COLUMNS; column++) {
-            if(!tetris.playfield[row][column]) continue; 
-            const name =  tetris.playfield[row][column];
+            if (!tetris.playfield[row][column]) continue;
+            const name = tetris.playfield[row][column];
             const cellIndex = convertPositionToIndex(row, column);
             cells[cellIndex].classList.add(name);
         }
@@ -130,6 +130,25 @@ const draw = () => {
     drawGhostTetromino();
 }
 
-initKeyDown();
+const startGame = () => {
+    const button = document.getElementById('button');
+    let gameState = false;
 
-moveDown();
+    button.addEventListener('click', () => {
+        if (gameState === false) {
+            moveDown();
+            button.innerText = 'Stop';
+            gameState = true;
+        } else {
+            stopLoop();
+            button.innerText = 'Continue';
+            gameState = false;
+        }
+
+    })
+}
+
+initKeyDown();
+startGame();
+
+

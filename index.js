@@ -3,9 +3,10 @@ import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex } from './uti
 
 let requestId;
 let timeoutId;
-
+let score = 0;
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
+const audio = document.getElementById("myAudio");
 
 
 
@@ -20,6 +21,7 @@ const stopLoop = () => {
 
 const gameOver = () => {
     stopLoop();
+    audio.pause();
     document.removeEventListener('keydown', onKeyDown);
 }
 
@@ -62,15 +64,15 @@ const dropDown = () => {
 
 const onKeyDown = (event) => {
     switch (event.key) {
-        case 'ArrowUp':
+        case 'w':
             rotate()
-        case 'ArrowDown':
+        case 's':
             moveDown();
             break;
-        case 'ArrowLeft':
+        case 'a':
             moveLeft();
             break;
-        case 'ArrowRight':
+        case 'd':
             moveRight();
             break;
         case ' ':
@@ -138,17 +140,26 @@ const startGame = () => {
         if (gameState === false) {
             moveDown();
             button.innerText = 'Stop';
+            audio.play();
             gameState = true;
         } else {
             stopLoop();
             button.innerText = 'Continue';
+            audio.pause();
             gameState = false;
         }
+    })
+}
 
+const musicMute = () => {
+    const switcher = document.getElementById('music-switcher')
+    switcher.addEventListener('click', () => {
+        audio.paused ? audio.play() : audio.pause();
     })
 }
 
 initKeyDown();
 startGame();
+musicMute();
 
 

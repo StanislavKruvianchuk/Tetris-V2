@@ -48,7 +48,7 @@ export class Tetris {
             for (let column = 0; column < matrixSize; column++) {
                 if (!this.tetromino.matrix[row][column]) continue;
                 if (this.isOutsideOfGameBoard(row, column)) return false;
-                if(this.isCollides(row, column)) return false;
+                if (this.isCollides(row, column)) return false;
             }
         }
         return true
@@ -99,11 +99,11 @@ export class Tetris {
     dropTetrominoDown() {
         this.tetromino.row = this.tetromino.ghostRow;
         this.placeTetromino();
-      }
-    
+    }
+
 
     isOutsideOfTopBoard(row) {
-        return this.tetromino.row + row < 0; 
+        return this.tetromino.row + row < 0;
     }
 
     placeTetromino() {
@@ -113,12 +113,10 @@ export class Tetris {
                 if (!this.tetromino.matrix[row][column]) continue;
                 if (this.isOutsideOfTopBoard(row)) {
                     this.isGameOver = true;
-                    return 
+                    return
                 }
-               this.playfield[this.tetromino.row + row][this.tetromino.column + column] = this.tetromino.name
-                
+                this.playfield[this.tetromino.row + row][this.tetromino.column + column] = this.tetromino.name
             }
-            
         }
 
         this.processFilledRows();
@@ -134,7 +132,7 @@ export class Tetris {
     findFilledRows() {
         const filledRows = [];
         for (let row = 0; row < PLAYFIELD_ROWS; row++) {
-            if(this.playfield[row].every(cell => Boolean(cell))) {
+            if (this.playfield[row].every(cell => Boolean(cell))) {
                 filledRows.push(row);
             }
         }
@@ -158,7 +156,7 @@ export class Tetris {
     calculateGhostPosition() {
         const tetrominoRow = this.tetromino.row;
         this.tetromino.row++;
-        while(this.isValid()) {
+        while (this.isValid()) {
             this.tetromino.row++
         }
 

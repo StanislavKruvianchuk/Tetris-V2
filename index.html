@@ -215,18 +215,24 @@
             <div class="panel">
                 <div class="panel__wrapper">
                     <div class="panel__title">Tetris</div>
-                    <div class="panel__score">Score: 0</div>
+                    <div class="panel__score">Score: <span id="score">0</span></div>
                     <div class="panel_level">Level: 1</div>
                     <audio id="myAudio">
                         <source src="tetris_theme.mp3" type="audio/mpeg">
                     </audio>
                     <div class="panel__buttons">
-                        <button id="music-switcher" class="panel__music-switcher">Music Off</button>
-                        <button class="panel_button" id="button">Play</button>
+                        <div id="music-switcher" class="panel__music-switcher">Music Off</div>
+                        <div class="panel_button" id="button">Play</div>
                     </div>
+                </div>
+            </div>
+            <div class="popup dn" id="popup">
+                <div class="popup__wrapper">
+                    <div class="popup__text">GAME</div>
+                    <div class="popup__text">OVER</div>
+                    <div class="popup__restart panel_button" id="restart-button">TRY AGAIN</div>
                 </div>
             </div>  
         </div>
-       
     </body>
 </html>

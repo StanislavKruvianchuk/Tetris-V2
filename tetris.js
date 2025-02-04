@@ -1,5 +1,11 @@
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, TETROMINO_NAMES, TETROMINOES, getRandomElement, rotateMatrix } from './utilities.js';
+import { $score } from './index.js';
 
+export let score = 0;
+
+const changeScoreHTML = () => {
+    $score.innerText = score;
+}
 export class Tetris {
     constructor() {
         this.playfield;
@@ -17,6 +23,12 @@ export class Tetris {
         this.playfield = new Array(PLAYFIELD_ROWS).fill()
             .map(() => new Array(PLAYFIELD_COLUMNS).fill(0));
 
+    }
+
+    resetGame() {
+        this.playfield = Array.from({ length: PLAYFIELD_ROWS }, () => Array(PLAYFIELD_COLUMNS).fill(0));
+        this.isGameOver = false;
+        this.init();
     }
 
     generateTetromino() {
@@ -107,6 +119,8 @@ export class Tetris {
     }
 
     placeTetromino() {
+        score += 5;
+        changeScoreHTML();
         const matrixSize = this.tetromino.matrix.length;
         for (let row = 0; row < matrixSize; row++) {
             for (let column = 0; column < matrixSize; column++) {
@@ -151,6 +165,8 @@ export class Tetris {
             this.playfield[row] = this.playfield[row - 1];
         }
         this.playfield[0] = new Array(PLAYFIELD_COLUMNS).fill(0);
+        score += 100
+        changeScoreHTML();
     }
 
     calculateGhostPosition() {

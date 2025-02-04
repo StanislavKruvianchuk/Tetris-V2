@@ -1,18 +1,58 @@
-import { Tetris } from './tetris.js';
+import { Tetris, score } from './tetris.js';
 import { PLAYFIELD_COLUMNS, PLAYFIELD_ROWS, convertPositionToIndex } from './utilities.js'
+
+export const $score = document.getElementById("score");
 
 let requestId;
 let timeoutId;
-let score = 0;
 const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 const audio = document.getElementById("myAudio");
+const restartButton = document.getElementById('restart-button');
+const popup = document.getElementById('popup');
 
-
+let fallTime = 700
 
 const startLoop = () => {
-    timeoutId = setTimeout(() => requestId = requestAnimationFrame(moveDown), 700)
+    switch (score) {
+        case 0:
+            fallTime = 700;
+            break;
+        case 100:
+            fallTime = 600;
+            break;
+        case 200:
+            fallTime = 500;
+            break;
+        case 300:
+            fallTime = 400;
+            break;
+        case 400:
+            fallTime = 300;
+            break;
+        case 500:
+            fallTime = 200;
+            break;
+
+        default:
+            break;
+    }
+    timeoutId = setTimeout(() => requestId = requestAnimationFrame(moveDown), fallTime)
 }
+
+const restartGame = () => {
+    stopLoop();
+    tetris.resetGame();
+    // $score.innerText = "0";
+    cells.forEach(cell => cell.removeAttribute('class'));
+    initKeyDown();
+    startLoop();
+}
+
+restartButton.addEventListener('click', () => {
+    popup.classList.add('dn');
+    restartGame();
+})
 
 const stopLoop = () => {
     cancelAnimationFrame(requestId)
@@ -22,7 +62,12 @@ const stopLoop = () => {
 const gameOver = () => {
     stopLoop();
     audio.pause();
+    popup.classList.remove('dn');
     document.removeEventListener('keydown', onKeyDown);
+
+    if (localStorage.getItem('Record') > score) {
+        localStorage.setItem('Record', score)
+    }
 }
 
 const moveDown = () => {

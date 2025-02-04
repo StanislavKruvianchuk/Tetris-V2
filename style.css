@@ -24,7 +24,42 @@ button {
 }
 
 .container {
+  position: relative;
   display: flex;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+.popup.dn {
+  display: none;
+}
+
+.popup__wrapper {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup__text {
+  font-size: 60px;
+}
+
+.popup__restart {
+  margin-top: 20px;
 }
 
 .grid {
@@ -33,7 +68,7 @@ button {
     grid-template-rows: repeat(20, auto);
     padding: 0.6vh;
     gap: 0.3vh;
-    background: rgba(1, 8, 89, 0.5);
+    background: #000000;
 }
 
 .grid>div {
@@ -41,7 +76,6 @@ button {
     height: var(--cell-size);
     width: var(--cell-size);
     border-radius: 0.3vh;
-    /* background-color: black;a */
 }
 
 .grid>div.ghost {
@@ -111,7 +145,7 @@ button {
   }
 
   .panel__title {
-    padding-bottom: 10px;
+    padding: 20px 0 10px 0;
     font-size: 45px;
   }
 
@@ -127,14 +161,17 @@ button {
     padding: 10px;
     width: 50%;
     background: rgba(255, 0, 0, 0.7);
+    cursor: pointer;
   }
   
   .panel_button {
+    text-align: center;
     padding: 10px;
     font-size: 20px;
     background:rgba(48, 174, 72, 0.7);
     transition: all .3s ease;
     z-index: 2;
+    cursor: pointer;
   }
 
   .tetris__button:before {

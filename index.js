@@ -14,28 +14,18 @@ const popup = document.getElementById('popup');
 let fallTime = 700
 
 const startLoop = () => {
-    switch (score) {
-        case 0:
-            fallTime = 700;
-            break;
-        case 100:
-            fallTime = 600;
-            break;
-        case 200:
-            fallTime = 500;
-            break;
-        case 300:
-            fallTime = 400;
-            break;
-        case 400:
-            fallTime = 300;
-            break;
-        case 500:
-            fallTime = 200;
-            break;
-
-        default:
-            break;
+    if (score >= 500) {
+        fallTime = 400;
+    } else if (score >= 400) {
+        fallTime = 450;
+    } else if (score >= 300) {
+        fallTime = 460;
+    } else if (score >= 200) {
+        fallTime = 470;
+    } else if (score >= 100) {
+        fallTime = 500;
+    } else if (score === 0) {
+        fallTime = 700;
     }
     timeoutId = setTimeout(() => requestId = requestAnimationFrame(moveDown), fallTime)
 }

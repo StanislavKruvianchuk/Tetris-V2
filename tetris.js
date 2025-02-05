@@ -28,6 +28,8 @@ export class Tetris {
     resetGame() {
         this.playfield = Array.from({ length: PLAYFIELD_ROWS }, () => Array(PLAYFIELD_COLUMNS).fill(0));
         this.isGameOver = false;
+        score = 0;
+        changeScoreHTML();
         this.init();
     }
 

@@ -9,7 +9,10 @@ const tetris = new Tetris();
 const cells = document.querySelectorAll('.grid>div');
 const audio = document.getElementById("myAudio");
 const restartButton = document.getElementById('restart-button');
+const record = document.getElementById('record');
 const popup = document.getElementById('popup');
+
+record.innerText = localStorage.getItem('Record');
 
 let fallTime = 700
 
@@ -34,6 +37,7 @@ const restartGame = () => {
     stopLoop();
     tetris.resetGame();
     // $score.innerText = "0";
+    record.innerText = localStorage.getItem('Record');
     cells.forEach(cell => cell.removeAttribute('class'));
     initKeyDown();
     startLoop();
@@ -55,8 +59,12 @@ const gameOver = () => {
     popup.classList.remove('dn');
     document.removeEventListener('keydown', onKeyDown);
 
+    let newRecord = localStorage.getItem('Record') > score ? localStorage.getItem('Record') : score
+    localStorage.setItem('Record', newRecord);
+
     if (localStorage.getItem('Record') > score) {
         localStorage.setItem('Record', score)
+        record.innerText = score;
     }
 }
 
